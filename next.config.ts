@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Fully static export: no server, no cookies, no runtime.
+  output: "export",
+  trailingSlash: false,
+  images: { unoptimized: true },
 };
 
 export default nextConfig;

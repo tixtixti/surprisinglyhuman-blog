@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Surprisingly Human
 
-## Getting Started
+Static blog + bio. Next.js 16 (App Router, `output: "export"`), TypeScript, no backend, no cookies, no analytics. The only browser state is two `localStorage` keys for the ink/paper mode and the type size.
 
-First, run the development server:
+Design source: Claude Design project "Surprisingly Human", file `surprisinglyhuman chassis.dc.html` (system SH-01, "Chassis").
+
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm build      # static site in ./out
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Writing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Posts are markdown files in `src/content/posts/`. Filename = URL slug.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```md
+---
+title: Your wiki is an ontology in denial
+dek: One-line standfirst shown on the tape.
+tag: LLM-WIKI          # ONTOLOGY | LLM-WIKI | AGENTS (see src/lib/site.ts)
+date: 2026-09-09
+draft: false           # optional
+---
 
-## Learn More
+## First reel
 
-To learn more about Next.js, take a look at the following resources:
+Body text. `##` headings become numbered reels in the article rail.
+A footnote[^1] becomes a margin note on wide screens and an amber strip under the paragraph on narrow ones.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[^1]: The note.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```turtle title="schema.ttl"
+code panels take an optional title tab
+```
+```
 
-## Deploy on Vercel
+Entry numbers are assigned chronologically (oldest = №1). Reading time is words / 220.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Where things live
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/lib/site.ts` — name, tagline, author, channels, spec sheet, site URL. Fill in `linkedin` / `email` to show those buttons on About.
+- `src/lib/posts.ts` — reads content, computes numbers, stats.
+- `src/lib/markdown.ts` — remark/rehype pipeline, sidenote + code-title plugins.
+- `src/components/` — Chassis (rail / deck / readouts layout), controls (TypeKnob, PowerLed, Feed toggles), ArticleRail (progress dial + reels).
+- `src/app/globals.css` — all styling and the ink/paper tokens.
+- `public/portrait.jpg` — drop a photo here and About picks it up at build.
+- `/feed.xml` — RSS, generated at build.
+
+Set `NEXT_PUBLIC_SITE_URL` in the deployment so RSS links and metadata use the real domain.
