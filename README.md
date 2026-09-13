@@ -1,6 +1,6 @@
 # Surprisingly Human
 
-Static blog + bio. Next.js 16 (App Router, `output: "export"`), TypeScript, no backend, no cookies, no analytics. The only browser state is two `localStorage` keys for the ink/paper mode and the type size.
+Static blog + bio. Next.js 16 (App Router, `output: "export"`), TypeScript, no backend, no cookies, no analytics. The only browser state is one `localStorage` key (`sh-mode`) for the ink/paper mode.
 
 Design source: Claude Design project "Surprisingly Human", file `surprisinglyhuman chassis.dc.html` (system SH-01, "Chassis").
 
@@ -44,7 +44,7 @@ Entry numbers are assigned chronologically (oldest = №1). Reading time is word
 - `src/lib/site.ts` — name, tagline, author, channels, spec sheet, site URL. Fill in `linkedin` / `email` to show those buttons on About.
 - `src/lib/posts.ts` — reads content, computes numbers, stats.
 - `src/lib/markdown.ts` — remark/rehype pipeline, sidenote + code-title plugins.
-- `src/components/` — Chassis (rail / deck / readouts layout), controls (TypeKnob, PowerLed, Feed toggles), ArticleRail (progress dial + reels).
+- `src/components/` — Chassis (rail / deck / readouts layout), PowerLed (ink/paper toggle), FeedTape + PostRow (entry list), ArticleRail (progress dial + reels).
 - `src/app/globals.css` — all styling and the ink/paper tokens.
 - `public/portrait.jpg` — drop a photo here and About picks it up at build.
 - `/feed.xml` — RSS, generated at build.

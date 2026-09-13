@@ -11,7 +11,7 @@ function pad(n: number) {
 
 /**
  * Left rail for an article: progress dial (needle = how far down the tape
- * you are), reel list (h2 sections), type knob, power LED. Progress is
+ * you are), reel list (h2 sections), power LED. Progress is
  * computed from the scroll position of the element marked data-article.
  */
 export function ArticleRail({ headings, mins }: { headings: Heading[]; mins: number }) {
