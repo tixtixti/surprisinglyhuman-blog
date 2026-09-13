@@ -4,7 +4,7 @@ dek: Mistä sana tulee, miten se päätyi tietojenkäsittelytieteeseen, ja miksi
 tag: ONTOLOGY
 date: 2026-09-12
 lang: fi
-draft: true
+draft: false
 ---
 
 ## Miksi tämä postaus

@@ -5,7 +5,8 @@ export type NavKey = "feed" | "archive" | "about" | "rss" | "none";
 const ITEMS: { key: NavKey; label: string; href: string }[] = [
   { key: "feed", label: "FEED", href: "/" },
   { key: "archive", label: "ARCHIVE", href: "/archive" },
-  { key: "about", label: "ABOUT", href: "/about" },
+  // About is hidden until it is finished; restore by renaming src/app/_about back to about.
+  // { key: "about", label: "ABOUT", href: "/about" },
   { key: "rss", label: "RSS", href: "/feed.xml" },
 ];
 
