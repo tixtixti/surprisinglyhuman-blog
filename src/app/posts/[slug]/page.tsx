@@ -33,9 +33,10 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
       railClassName="article-rail"
       rail={<ArticleRail headings={post.headings} mins={post.mins} />}
     >
-      <article className="tape tape--article" data-article>
+      <article className="tape tape--article" data-article lang={post.lang}>
         <div className="article-meta">
           № {post.num} · {post.tag} · {post.mins} MIN · {post.date} · {site.author.short.toUpperCase()}
+          {post.draft ? " · DRAFT" : null}
         </div>
         <h1 className="article-title">{post.title}</h1>
         <div className="article-rule" aria-hidden="true" />

@@ -4,6 +4,8 @@ import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
+import rehypeShiki from "@shikijs/rehype";
+import type { ThemeRegistration } from "shiki";
 import { visit } from "unist-util-visit";
 import { h } from "hastscript";
 import type { Root, RootContent, ElementContent } from "hast";
@@ -16,23 +18,30 @@ function textOf(node: ElementContent | RootContent): string {
   return "";
 }
 
-/**
- * Lifts ```lang title="file" meta onto the <pre> as data-title so CSS can
- * print the little tab on the inset code panel.
- */
-function rehypeCodeTitle() {
-  return (tree: Root) => {
-    visit(tree, "element", (node) => {
-      if (node.tagName !== "pre") return;
-      const code = node.children.find(
-        (c) => c.type === "element" && c.tagName === "code",
-      );
-      if (!code || code.type !== "element") return;
-      const meta = (code.data as { meta?: string } | undefined)?.meta ?? "";
-      const m = /title="([^"]+)"/.exec(meta);
-      if (m) node.properties["data-title"] = m[1];
-    });
-  };
+/** Code panel palette: the tape's ink on the chassis well, accent for keywords. */
+// NB: shiki puts the theme name on <pre> as a class, so keep it out of the CSS namespace.
+const tapeTheme: ThemeRegistration = {
+  name: "sh-code",
+  type: "dark",
+  colors: { "editor.background": "#15161a", "editor.foreground": "#d8d2c4" },
+  tokenColors: [
+    { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: "#7c776d", fontStyle: "italic" } },
+    { scope: ["keyword", "storage", "storage.type", "keyword.operator.expression", "keyword.control"], settings: { foreground: "#ff9a2e" } },
+    { scope: ["keyword.operator", "punctuation", "meta.brace"], settings: { foreground: "#9a958b" } },
+    { scope: ["string", "string.quoted", "punctuation.definition.string"], settings: { foreground: "#7fd6a8" } },
+    { scope: ["constant.numeric", "constant.language", "constant.character"], settings: { foreground: "#f6c46a" } },
+    { scope: ["entity.name.type", "entity.name.class", "entity.name.interface", "support.type", "support.class", "entity.other.inherited-class"], settings: { foreground: "#f6c46a" } },
+    { scope: ["entity.name.function", "support.function", "meta.function-call entity.name.function"], settings: { foreground: "#ffb870" } },
+    { scope: ["variable.other.property", "meta.object-literal.key", "entity.name.tag", "support.type.property-name"], settings: { foreground: "#e9e4d8" } },
+    { scope: ["variable", "variable.parameter", "variable.other.readwrite"], settings: { foreground: "#d8d2c4" } },
+    { scope: ["entity.name.tag.turtle", "constant.other.turtle", "entity.other.attribute-name"], settings: { foreground: "#f6c46a" } },
+  ],
+};
+
+/** Extracts `title="file"` from the code fence meta, e.g. ```ts title="schema.ts" */
+function parseCodeMeta(meta: string) {
+  const m = /title="([^"]+)"/.exec(meta);
+  return m ? { title: m[1] } : {};
 }
 
 /**
@@ -121,7 +130,21 @@ export async function renderMarkdown(source: string) {
     .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypeSlug)
-    .use(rehypeCodeTitle)
+    .use(rehypeShiki, {
+      theme: tapeTheme,
+      fallbackLanguage: "text",
+      parseMetaString: parseCodeMeta,
+      transformers: [
+        {
+          // Lift the fence title onto <pre data-title> for the CSS tab.
+          pre(node) {
+            const title = (this.options.meta as { title?: string } | undefined)?.title;
+            if (title) node.properties["data-title"] = title;
+            delete node.properties.title; // shiki copies meta keys as attributes; no tooltip wanted
+          },
+        },
+      ],
+    })
     .use(rehypeSidenotes) // strips the generated "Footnotes" section before headings are read
     .use(collectHeadings(headings))
     .use(rehypeStringify)

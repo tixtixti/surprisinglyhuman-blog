@@ -14,6 +14,9 @@ export type PostMeta = {
   dek: string;
   tag: string;
   date: string; // YYYY-MM-DD
+  /** BCP 47 language of the body, e.g. "fi". Defaults to the site language. */
+  lang?: string;
+  draft: boolean;
   words: number;
   mins: number;
 };
@@ -28,13 +31,15 @@ type Frontmatter = {
   dek?: string;
   tag: string;
   date: string;
+  lang?: string;
   draft?: boolean;
 };
 
 let cache: { metas: PostMeta[]; bodies: Map<string, string> } | null = null;
 
 function load() {
-  if (cache) return cache;
+  // Cache only in production builds so edits to markdown show up live in dev.
+  if (cache && process.env.NODE_ENV === "production") return cache;
   const files = fs.existsSync(POSTS_DIR)
     ? fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith(".md"))
     : [];
@@ -49,7 +54,8 @@ function load() {
       const fm: Frontmatter = { ...raw, date };
       return { slug, fm, content };
     })
-    .filter((p) => !p.fm.draft)
+    // Drafts show up in `pnpm dev` so you can see them; never in the build.
+    .filter((p) => !p.fm.draft || process.env.NODE_ENV !== "production")
     .sort((a, b) => (a.fm.date < b.fm.date ? -1 : a.fm.date > b.fm.date ? 1 : 0));
 
   const bodies = new Map<string, string>();
@@ -63,6 +69,8 @@ function load() {
       dek: p.fm.dek ?? "",
       tag: p.fm.tag,
       date: p.fm.date,
+      lang: p.fm.lang,
+      draft: Boolean(p.fm.draft),
       words,
       mins: Math.max(1, Math.round(words / site.wordsPerMinute)),
     };

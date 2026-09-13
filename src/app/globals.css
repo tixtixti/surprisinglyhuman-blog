@@ -473,6 +473,9 @@ html[data-mode="paper"] .readout-value { text-shadow: none; }
   position: absolute;
   top: -9px;
   left: 18px;
+  width: max-content;
+  white-space: nowrap;
+  line-height: 1.4;
   background: var(--tape);
   color: var(--tape-label);
   font-family: var(--font-mono), monospace;
