@@ -18,7 +18,7 @@ There is no test suite. Use `pnpm build` to verify changes: it type-checks, rend
 
 ## Architecture
 
-A fully static blog: Next.js 16 App Router with `output: "export"` (see `next.config.ts`). There is no server runtime, so anything that needs one won't work: dynamic routes without `generateStaticParams`, cookies, server actions, API routes that aren't `force-static`, or image optimization. The site deliberately has no backend, cookies, or analytics. The only browser state is `localStorage` (`sh-mode` for ink/paper mode).
+A fully static blog: Next.js 16 App Router with `output: "export"` (see `next.config.ts`). There is no server runtime, so anything that needs one won't work: dynamic routes without `generateStaticParams`, cookies, server actions, API routes that aren't `force-static`, or image optimization. The site deliberately has no backend and no cookies. The only analytics is Vercel Web Analytics (`<Analytics />` from `@vercel/analytics/next` in `layout.tsx`), which is cookieless and uses no browser storage. Don't add analytics or tracking that sets cookies. The only browser state is `localStorage` (`sh-mode` for ink/paper mode).
 
 **Content flow.** Markdown posts in `src/content/posts/*.md` → `src/lib/posts.ts` → pages.
 - The filename is the slug. Frontmatter: `title`, `dek`, `tag`, `date` (YYYY-MM-DD), plus optional `lang` (BCP 47, sets `lang` on the article, e.g. `fi`) and `draft`.

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Azeret_Mono, Big_Shoulders, Literata } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -50,6 +51,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <script dangerouslySetInnerHTML={{ __html: restoreControls }} />
         {children}
+        {/* Vercel Web Analytics: cookieless, no browser storage. Visitors are
+            counted by a server-side hash that rotates daily. */}
+        <Analytics />
       </body>
     </html>
   );
