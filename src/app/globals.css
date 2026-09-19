@@ -37,6 +37,9 @@
   --code-fg: #d8d2c4;
   --code-dim: #9a958b;
   --code-str: #7fd6a8;
+  --fig-grid: #2b2e34;
+  --fig-a: #ff9a2e;
+  --fig-b: var(--code-str);
   --tape-shadow: inset 0 12px 16px -12px #000, 0 20px 40px -20px #000;
 
   --body-base: 17.5px;
@@ -455,7 +458,8 @@ html[data-mode="paper"] .readout-value { text-shadow: none; }
   background: rgba(21, 22, 26, 0.08);
   padding: 0.1em 0.35em;
 }
-.article-body pre {
+.article-body pre,
+.article-body .fig {
   margin: 26px -20px 0;
   background: var(--code-bg);
   color: var(--code-fg);
@@ -468,7 +472,8 @@ html[data-mode="paper"] .readout-value { text-shadow: none; }
 }
 /* scroll on the inner code so the title tab can hang over the panel edge */
 .article-body pre code { display: block; overflow-x: auto; background: none; padding: 0; font-size: inherit; }
-.article-body pre[data-title]::before {
+.article-body pre[data-title]::before,
+.article-body .fig[data-title]::before {
   content: attr(data-title);
   position: absolute;
   top: -9px;
@@ -483,6 +488,62 @@ html[data-mode="paper"] .readout-value { text-shadow: none; }
   font-size: 10px;
   padding: 2px 8px;
 }
+
+/* figures: instrument panels that sit with the code blocks, dark in both modes */
+.fig-s1 { --c: var(--fig-a); }
+.fig-s2 { --c: var(--fig-b); }
+.fig-legend { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 11px; line-height: 1.6; color: var(--code-dim); }
+.fig-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.fig figcaption {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--fig-grid);
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: var(--code-dim);
+}
+.db { margin-top: 12px; }
+.db-group {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  align-items: center;
+  padding: 6px 0;
+  border-top: 1px dashed var(--fig-grid);
+}
+.db-cat { padding-right: 12px; font-weight: 700; font-size: 11px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; }
+.db-cat span { display: block; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--code-dim); }
+.db-line {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr) 96px;
+  column-gap: 14px;
+  align-items: center;
+  font-size: 11px;
+  line-height: 1;
+}
+.db-name { font-weight: 700; color: var(--c); }
+.db-val { text-align: right; white-space: nowrap; color: var(--code-dim); font-variant-numeric: tabular-nums; }
+.db-val b { font-weight: 700; color: var(--code-fg); }
+.db-track {
+  position: relative;
+  height: 26px;
+  border-right: 1px solid var(--fig-grid);
+  background: linear-gradient(90deg, var(--fig-grid) 1px, transparent 1px) 0 0 / 25% 100%;
+}
+.db-bar { position: absolute; top: 50%; height: 3px; margin-top: -1.5px; background: var(--c); opacity: 0.45; }
+.db-dot,
+.fig-mark { width: 11px; height: 11px; border-radius: 50%; background: var(--c, var(--code-fg)); }
+.db-dot {
+  position: absolute;
+  top: 50%;
+  margin: -5.5px 0 0 -5.5px;
+  box-shadow: 0 0 0 2px var(--code-bg), 0 0 10px 1px color-mix(in srgb, var(--c) 55%, transparent);
+}
+.db-dot--from,
+.fig-mark--from { background: var(--code-bg); border: 2px solid var(--c, var(--code-fg)); box-shadow: none; }
+.db-axis { padding: 0; border-top: 0; }
+.db-ticks { position: relative; height: 16px; }
+.db-ticks span { position: absolute; top: 4px; transform: translateX(-50%); font-size: 10px; color: var(--code-dim); }
+
 .article-body sup {
   font-size: 0.6em;
   vertical-align: super;
@@ -730,6 +791,7 @@ html[data-mode="paper"] .dial-needle { background: var(--ink); }
   .article-rule { height: 3px; margin: 16px 0 18px; }
   .article-body { max-width: none; }
   .article-body pre { margin-left: -14px; margin-right: -14px; padding: 14px 16px; font-size: 12.5px; }
+  .article-body .fig { margin-left: -14px; margin-right: -14px; padding: 16px 16px 14px; }
 
   .article-rail { align-items: center; }
   .article-rail .dial { display: none; }
@@ -758,6 +820,13 @@ html[data-mode="paper"] .dial-needle { background: var(--ink); }
   .about-body p { font-size: 16.5px; line-height: 1.5; }
   .tape-buttons { font-size: 11px; margin-top: 16px; gap: 10px; }
   .tape-buttons a { padding: 8px 12px; }
+}
+/* figures: category label moves above its rows when the panel gets tight */
+@media (max-width: 560px) {
+  .db-group { display: block; padding: 8px 0 4px; }
+  .db-cat { margin-bottom: 2px; }
+  .db-cat span { display: inline; margin-left: 8px; }
+  .db-line { grid-template-columns: 44px minmax(0, 1fr) 84px; column-gap: 10px; }
 }
 @media (min-width: 1024px) {
   .about-plate-mobile { display: none; }

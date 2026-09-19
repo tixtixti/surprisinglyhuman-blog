@@ -27,7 +27,8 @@ A fully static blog: Next.js 16 App Router with `output: "export"` (see `next.co
 - Drafts are filtered out only when `NODE_ENV === "production"`. The in-memory cache is also production-only, so markdown edits show up live in dev.
 - YAML turns bare dates into `Date` objects; `load()` converts them back to strings. Keep that conversion if you touch parsing.
 
-**Markdown pipeline** (`src/lib/markdown.ts`): remark-parse → gfm → rehype → slug → Shiki → `rehypeSidenotes` → heading collection → stringify. Plugin order matters:
+**Markdown pipeline** (`src/lib/markdown.ts`): remark-parse → gfm → `remarkFigures` → rehype → slug → Shiki → `rehypeSidenotes` → heading collection → stringify. Plugin order matters:
+- Raw HTML in markdown is dropped, so charts come from fences. `remarkFigures` (`src/lib/figures.ts`) replaces a ```` ```dumbbell ```` fence with `<figure class="fig">`, an HTML/CSS chart styled as a dark panel like the code blocks (`.fig`, `.db-*`, and `--fig-*` tokens in `globals.css`). The syntax is in the file's header comment. It replaces the node instead of setting `data.hName`, because on a code node that lands on the inner `<code>` and leaves the `<pre>` wrapper.
 - Shiki uses the custom `sh-code` theme. Shiki adds the theme name to `<pre>` as a class, so don't reuse that name as a CSS class. A code fence's `title="…"` meta becomes `<pre data-title>`, which CSS renders as a tab.
 - `rehypeSidenotes` removes the GFM footnotes section. It wraps each top-level block that cites a footnote in `div.fn-block` and puts `aside.sidenote` elements before it. CSS floats these into the margin on wide screens and stacks them below the paragraph on narrow ones.
 - Headings are collected after sidenotes so the footnote section's heading isn't included. Only `h2` headings are collected; they become the numbered "reels" in `ArticleRail`.

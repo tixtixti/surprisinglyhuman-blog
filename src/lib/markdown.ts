@@ -9,6 +9,7 @@ import type { ThemeRegistration } from "shiki";
 import { visit } from "unist-util-visit";
 import { h } from "hastscript";
 import type { Root, RootContent, ElementContent } from "hast";
+import { remarkFigures } from "./figures";
 
 export type Heading = { id: string; text: string };
 
@@ -128,6 +129,7 @@ export async function renderMarkdown(source: string) {
   const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
+    .use(remarkFigures) // ```dumbbell fences become <figure class="fig">, so Shiki skips them
     .use(remarkRehype)
     .use(rehypeSlug)
     .use(rehypeShiki, {
