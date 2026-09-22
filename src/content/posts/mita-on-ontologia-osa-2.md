@@ -258,23 +258,24 @@ Tämän blogitekstin tiedonhaussa ja kirjoittamisessa on hyödynnetty tekoälyä
 
 ## Lähteet
 
-- Gruber, T. R. (2009). ["Ontology."](https://tomgruber.org/writing/ontology-in-encyclopedia-of-dbs.pdf) Teoksessa Liu & Özsu (toim.), *Encyclopedia of Database Systems*. Springer.
-- Palantir — [Why create an Ontology?](https://www.palantir.com/docs/foundry/ontology/why-ontology)
-- Palantir — [Ontology SDK overview](https://www.palantir.com/docs/foundry/ontology-sdk/overview) (Ontology-as-code, rajatut tokenit)
-- Palantir — [Submission criteria](https://www.palantir.com/docs/foundry/action-types/submission-criteria)
-- Luong Tuan, T. & Sanyal, A. (2026). [Ontology-Constrained Neural Reasoning in Enterprise Agentic Systems.](https://arxiv.org/abs/2604.00555) arXiv-esijulkaisu, huhtikuu 2026 (rooli-, domain- ja interaktio-ontologiat)
-- Zhang, X., Sun, Z., Yang, C., Cui, Y., Guo, L. & Hu, W. (2026). [Toward Effective and Reliable LLM Agents via Dynamic Ontology.](https://arxiv.org/abs/2608.22974) arXiv-esijulkaisu, 24.8.2026 (OaK: kielimalli rakentaa ontologian itse)
-- Evans, E. (2003). *Domain-Driven Design: Tackling Complexity in the Heart of Software.* Addison-Wesley. (ubiquitous language)
-- Fowler, M. [Ubiquitous Language.](https://martinfowler.com/bliki/UbiquitousLanguage.html) martinfowler.com
-- Databricks (16.6.2026). [Introducing Genie One, Genie Ontology, and Genie Agents.](https://www.databricks.com/blog/introducing-genie-one-genie-ontology-and-genie-agents)
-- Databricks (1.9.2026). [Operationalizing Genie Ontology in your data stack.](https://www.databricks.com/blog/operationalizing-genie-ontology-your-data-stack)
-- Atlan (19.5.2026). [What is Active Ontology.](https://atlan.com/know/what-is-active-ontology/); [Enrich metadata at scale (docs)](https://docs.atlan.com/product/capabilities/governance/context-agents-studio/best-practices/enrich-metadata-at-scale)
-- Anthropic (29.9.2025). [Effective context engineering for AI agents.](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
-- Anthropic — [How Claude remembers your project](https://code.claude.com/docs/en/memory) (Claude Code -dokumentaatio)
-- Anthropic — [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview)
-- TypeSafe — [API reference](https://docs.typesafe.ai/api)
+- Gruber, T. R. (2009). ["Ontology."](https://tomgruber.org/writing/ontology-in-encyclopedia-of-dbs.pdf) Teoksessa Liu & Özsu (toim.), *Encyclopedia of Database Systems*. Springer. (johdannon määritelmä)
+- Palantir — [Why create an Ontology?](https://www.palantir.com/docs/foundry/ontology/why-ontology) (Insinöörin ontologia)
+- Palantir — [Ontology SDK overview](https://www.palantir.com/docs/foundry/ontology-sdk/overview) (ontology-as-code)
+- Palantir — [Submission criteria](https://www.palantir.com/docs/foundry/action-types/submission-criteria) (`ontologia.yaml`:n `submissionCriteria`)
+- Luong Tuan, T. & Sanyal, A. (2026). [Ontology-Constrained Neural Reasoning in Enterprise Agentic Systems.](https://arxiv.org/abs/2604.00555) arXiv-esijulkaisu, huhtikuu 2026. (roolit, domain ja interaktiot; alaviitteet 1 ja 6)
+- Evans, E. (2003). *Domain-Driven Design: Tackling Complexity in the Heart of Software.* Addison-Wesley. (ubiquitous language; alaviite 2)
+- Fowler, M. [Ubiquitous Language.](https://martinfowler.com/bliki/UbiquitousLanguage.html) martinfowler.com (alaviite 2)
+- Databricks (16.6.2026). [Introducing Genie One, Genie Ontology, and Genie Agents.](https://www.databricks.com/blog/introducing-genie-one-genie-ontology-and-genie-agents) (Lampunhengen ontologia)
+- Databricks (1.9.2026). [Operationalizing Genie Ontology in your data stack.](https://www.databricks.com/blog/operationalizing-genie-ontology-your-data-stack) (Lampunhengen ontologia)
+- Atlan (19.5.2026). [What is Active Ontology.](https://atlan.com/know/what-is-active-ontology/) (Hallittu kaaos)
+- Atlan — [Enrich metadata at scale](https://docs.atlan.com/product/capabilities/governance/context-agents-studio/best-practices/enrich-metadata-at-scale) (dokumentaatio; alaviitteen 3 lainaukset)
+- Common Crawl — [Statistics of Common Crawl Monthly Archives: Distribution of Languages](https://commoncrawl.github.io/cc-crawl-statistics/plots/languages.html); raakadata [languages.csv](https://commoncrawl.github.io/cc-crawl-statistics/plots/languages.csv). (CC-MAIN-2026-34, sivun pääkieli CLD2:lla tunnistettuna; alaviite 4)
+- Anthropic (29.9.2025). [Effective context engineering for AI agents.](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (kontekstinhallinta; alaviite 7)
+- Anthropic — [How Claude remembers your project](https://code.claude.com/docs/en/memory) (Claude Code -dokumentaatio; alaviitteen 7 lainaus)
+- Anthropic — [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview) (Sonnet-lainaus, Testisetuppi)
+- TypeSafe — [API reference](https://docs.typesafe.ai/api) (Jev; alaviite 10)
 - GIGAZINE (16.9.2026). [System One / Jev.](https://gigazine.net/gsc_news/en/20260916-system-one-jev/)
 - DataCamp — [System One models: Jev.](https://www.datacamp.com/blog/system-one-models-jev)
-- Oma koe: [github.com/tixtixti/ontology-bench](https://github.com/tixtixti/ontology-bench)
+- Oma koe: [github.com/tixtixti/ontology-bench](https://github.com/tixtixti/ontology-bench) (koodi, data, kysymykset ja jokainen raaka vastaus; alaviite 9)
 
 ---
