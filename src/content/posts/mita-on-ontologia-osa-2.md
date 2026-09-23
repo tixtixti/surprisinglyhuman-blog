@@ -67,7 +67,7 @@ Tässä Anna mallintuu konsulttina tyypiltään oma ja Ruskan projekti y-tunnuks
 
 Databricksin Genie Ontology edustaa niin sanottua *oppivaa ontologiaa*. Pointti on, että kun yrityksesi tietorakenteet ovat jo valmiiksi Databricksin alustalla tai vastaavassa data lakessa, voit yhdistellä omat taulusi, kyselysi, dashboardit ja muut assettisi ontologiaksi. Genie järjestää nämä auktoriteetin ja relevanssin mukaan ja hakee niistä painavimmat lähteet. Tällainen ontologia ei välttämättä tarjoile lainkaan funktioita tai toimenpiteitä, vaan tarjoaa yrityksen datan fiksusti tarjoiltuna seuraaville agenteille.
 
-Konsulttiyrityksemme tapauksessa yrityksen oma agentti kyselisi oppivan ontologian MCP:ltä tietoja Ruskasta, Annoista ja projekteista, yhdistelisi niitä omiin tietoihinsa esimerkiksi päivämäärästä, ja ymmärtäisi, että henkilöstöexcelin neljästä Annasta kolmella on jo merkintä toisessa taulussa aktiivisissa projekteissa.
+Konsulttiyrityksemme tapauksessa yrityksen oma agentti kyselisi oppivaa ontologiaa hyödyntävältä Genien MCP:ltä tietoja Ruskasta, Annoista ja projekteista, yhdistelisi niitä omiin tietoihinsa esimerkiksi päivämäärästä, ja ymmärtäisi, että henkilöstöexcelin neljästä Annasta kolmella on jo merkintä toisessa taulussa aktiivisissa projekteissa.
 
 ### Hallittu kaaos
 
